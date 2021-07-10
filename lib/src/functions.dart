@@ -1,3 +1,5 @@
+/// MAIN FUNCTIONS FOR THE LIBRARY
+
 import 'package:quotable/quotable.dart';
 import 'package:quotable/src/utils.dart';
 
@@ -5,22 +7,21 @@ import 'package:quotable/src/utils.dart';
 /// Endpoint: `/random`
 Future<Quote> getRandomQuote({int? maxLength, int? minLength, String? tags, String? author}) async {
   // parse custom params
+  var ps = [
+    {'v': 'maxLength', 'r': maxLength},
+    {'v': 'minLength', 'r': minLength},
+    {'v': 'tags', 'r': tags},
+    {'v': 'author', 'r': author},
+  ];
   var params = '';
-  if (!isNull(maxLength)) {
-    params += '&maxLength=$maxLength';
-  }
-  if (!isNull(minLength)) {
-    params += '&minLength=$minLength';
-  }
-  if (!isNull(tags)) {
-    params += '&tags=$tags';
-  }
-  if (!isNull(author)) {
-    params += '&author=$author';
-  }
 
-  final endpoint =
-      params != '' ? Quote.endpoint + '${params.replaceFirst("&", "?")}' : Quote.endpoint;
+  ps.forEach((el) {
+    if (!isNull(el['r'])) {
+      params += "&${el['v']}=${el['r']}";
+    }
+  });
+
+  final endpoint = Quote.endpoint + replaceQMark(params);
   final r = await requestHandler(endpoint);
 
   return Quote.fromJson(r);
@@ -37,6 +38,7 @@ Future<ListQuote> getQuotes(
     SortOrder? order,
     int? limit,
     int? page}) async {
+  // parse custom params
   var ps = [
     {'v': 'maxLength', 'r': maxLength},
     {'v': 'minLength', 'r': minLength},
@@ -82,6 +84,7 @@ Future<Quote> getQuoteByID(String id) async {
 /// author slug or ids.
 Future<ListAuthors> getAuthors(
     {String? slug, SortByAuthor? sortBy, SortOrder? order, int? limit, int? page}) async {
+  // parse custom params
   var ps = [
     {
       'v': 'slug',
@@ -125,6 +128,7 @@ Future<Authors> getAuthorByID(String id) async {
 
 /// Get a list of all tags
 Future<ListTags> getTags({SortByTags? sortBy, SortOrder? order}) async {
+  // parse custom params
   var params = '';
 
   if (!isNull(sortBy)) {
@@ -135,7 +139,7 @@ Future<ListTags> getTags({SortByTags? sortBy, SortOrder? order}) async {
   }
 
   final endpoint = ListTags.endpoint + replaceQMark(params);
-  final r = await requestHandler(endpoint);
+  final r = await requestListHandler(endpoint);
 
   return ListTags.fromJson(r);
 }

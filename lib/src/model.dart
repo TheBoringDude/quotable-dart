@@ -14,6 +14,8 @@ class Quote {
   String authorSlug;
   int length;
   List<String> tags;
+  String dateAdded;
+  String dateModified;
 
   Quote(
       {required this.id,
@@ -21,7 +23,9 @@ class Quote {
       required this.author,
       required this.authorSlug,
       required this.length,
-      required this.tags});
+      required this.tags,
+      required this.dateAdded,
+      required this.dateModified});
 
   factory Quote.fromJson(Map<String, dynamic> data) {
     return Quote(
@@ -30,7 +34,9 @@ class Quote {
         author: data['author'],
         authorSlug: data['authorSlug'],
         length: data['length'],
-        tags: List<String>.from(data['tags']));
+        tags: List<String>.from(data['tags']),
+        dateAdded: data['dateAdded'],
+        dateModified: data['dateModified']);
   }
 }
 
@@ -75,27 +81,32 @@ class Authors {
   String link;
   String name;
   String slug;
-  String quoteCount;
+  int quoteCount;
+  String dateAdded;
+  String dateModified;
 
-  Authors({
-    required this.id,
-    required this.bio,
-    required this.description,
-    required this.link,
-    required this.name,
-    required this.slug,
-    required this.quoteCount,
-  });
+  Authors(
+      {required this.id,
+      required this.bio,
+      required this.description,
+      required this.link,
+      required this.name,
+      required this.slug,
+      required this.quoteCount,
+      required this.dateAdded,
+      required this.dateModified});
 
   factory Authors.fromJson(Map<String, dynamic> data) {
     return Authors(
-        id: data['id'],
+        id: data['_id'],
         bio: data['bio'],
         description: data['description'],
         link: data['link'],
         name: data['name'],
         slug: data['slug'],
-        quoteCount: data['quoteCount']);
+        quoteCount: data['quoteCount'],
+        dateAdded: data['dateAdded'],
+        dateModified: data['dateModified']);
   }
 }
 
@@ -134,25 +145,37 @@ class ListAuthors {
 class Tags {
   String id;
   String name;
+  int v__;
+  int quoteCount;
+  String dateAdded;
+  String dateModified;
 
-  Tags({required this.id, required this.name});
+  Tags(
+      {required this.id,
+      required this.name,
+      required this.v__,
+      required this.quoteCount,
+      required this.dateAdded,
+      required this.dateModified});
 
   factory Tags.fromJson(Map<String, dynamic> data) {
-    return Tags(id: data['id'], name: data['name']);
+    return Tags(
+        id: data['_id'],
+        name: data['name'],
+        v__: data['__v'],
+        quoteCount: data['quoteCount'],
+        dateAdded: data['dateAdded'],
+        dateModified: data['dateModified']);
   }
 }
 
 class ListTags {
   static String endpoint = '/tags';
-
-  int count;
   List<Tags> results;
 
-  ListTags({required this.count, required this.results});
+  ListTags({required this.results});
 
-  factory ListTags.fromJson(Map<String, dynamic> data) {
-    Iterable r = data['results'];
-
-    return ListTags(count: data['count'], results: List<Tags>.from(r.map((l) => Tags.fromJson(l))));
+  factory ListTags.fromJson(List<dynamic> data) {
+    return ListTags(results: List<Tags>.from(data.map((l) => Tags.fromJson(l))));
   }
 }
