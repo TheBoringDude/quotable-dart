@@ -2,15 +2,15 @@ import 'package:quotable/quotable.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
+  group('test :: get random quote', () {
     setUp(() {
       // Additional setup goes here.
     });
 
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+    test('response is not null', () async {
+      final r = await getRandomQuote();
+
+      expect(r, isNotNull);
     });
   });
 }

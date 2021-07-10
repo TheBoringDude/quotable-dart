@@ -5,3 +5,4 @@ library quotable;
 
 export 'src/model.dart';
 export 'src/request.dart';
+export 'src/functions.dart';
