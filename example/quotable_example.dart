@@ -26,7 +26,7 @@ void listAuthors() async {
 }
 
 void authorByID() async {
-  final r = await getAuthorByID('johann-wolfgang-von-goethe');
+  final r = await getAuthorByID('Bblz8Knp6-ZB');
 
   print(r.name);
 }

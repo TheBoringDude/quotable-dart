@@ -1,6 +1,7 @@
 /// MAIN FUNCTIONS FOR THE LIBRARY
 
 import 'package:quotable/quotable.dart';
+import 'package:quotable/src/request.dart';
 import 'package:quotable/src/utils.dart';
 
 /// Get a single random quote from the database.
