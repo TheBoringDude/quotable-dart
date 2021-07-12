@@ -1,4 +1,4 @@
-# quotable_dart
+# quotable-dart
 
 A simple API Wrapper for https://github.com/lukePeavey/quotable
 
