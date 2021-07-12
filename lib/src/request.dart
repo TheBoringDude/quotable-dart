@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 // DEFAULT PRIMARY API SERVER
 final API_SERVER = 'http://api.quotable.io';
 
+// base request function
 Future<String> _request(String url) async {
   final response = await http.get(Uri.parse(API_SERVER + url));
 
