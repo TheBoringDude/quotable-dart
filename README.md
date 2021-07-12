@@ -45,3 +45,7 @@ void authorByID() async {
 Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/TheBoringDude/quotable-dart/issues
+
+##
+
+#### &copy; 2021 | TheBoringDude | [LICENSE](./LICENSE)
